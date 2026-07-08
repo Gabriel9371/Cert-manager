@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "certificates_")
+@Table(name = "certificates")
 public class Certificate {
 
     @Id
