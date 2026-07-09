@@ -3,6 +3,9 @@ package br.com.mage.certmanager.service;
 import br.com.mage.certmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import br.com.mage.certmanager.dto.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -22,7 +25,7 @@ public class UserService {
         return null;
     }
 
-    public UserResponseDTO  updateUser(Long id, UserUpdateRequest dtoUpd){
+    public UserResponseDTO updateUser(Long id, UserUpdateRequestDTO dtoUpd){
         return null;
     }
 
