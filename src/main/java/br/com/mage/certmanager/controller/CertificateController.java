@@ -22,12 +22,16 @@ public class CertificateController {
 
     @GetMapping
     public ResponseEntity<List<CertificateResponseDTO>> listAllCertificates(){
-        return null;
+        List<CertificateResponseDTO> certificates = certificateService.listAllCertificates();
+
+        return ResponseEntity.ok(certificates);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CertificateResponseDTO> listCertificateById(@PathVariable Long id){
-        return null;
+        CertificateResponseDTO certificate = certificateService.listCertificateById(id);
+
+        return ResponseEntity.ok(certificate);
     }
 
     @PostMapping
@@ -39,18 +43,24 @@ public class CertificateController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<CertificateResponseDTO> updateCertificate(@RequestBody CertificateUpdateRequestDTO uDto, @PathVariable Long id){
-        return null;
+        CertificateResponseDTO certificate = certificateService.updateCertificate(uDto, id);
+
+        return ResponseEntity.ok(certificate);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCertificate(@PathVariable Long id){
-        return null;
+        certificateService.deleteCertificate(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 
     @GetMapping("/expired")
     public ResponseEntity<List<CertificateResponseDTO>> expiredCertificates(){
 
-        return null;
+        List<CertificateResponseDTO> certificatesExpireds = certificateService.listExpiredCertificates();
+
+        return ResponseEntity.ok(certificatesExpireds);
     }
 }

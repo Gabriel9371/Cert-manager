@@ -155,6 +155,13 @@ public class CertificateService {
 
     }
 
+    //TODO-  Voltar para modificar, feito como teste...
+    public List<CertificateResponseDTO> listExpiredCertificates(){
+        List<Certificate> certificates = certificateRepository.findByStatus(CertificateStatus.EXPIRED);
 
+        return certificates.stream().map(
+                certificateMapper::toResponse
+        ).toList();
+    }
 
 }
