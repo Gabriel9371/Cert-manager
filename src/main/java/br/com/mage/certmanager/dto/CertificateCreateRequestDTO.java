@@ -35,4 +35,6 @@ public class CertificateCreateRequestDTO {
     private Boolean issuedByUs;
 
     private Double renewalValue;
+
+    private Long createdByUserId;
 }

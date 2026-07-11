@@ -6,12 +6,15 @@ import br.com.mage.certmanager.dto.CertificateUpdateRequestDTO;
 import br.com.mage.certmanager.dto.StatusCertificateDTO;
 import br.com.mage.certmanager.entity.Certificate;
 import br.com.mage.certmanager.entity.CertificatesStatusHistory;
+import br.com.mage.certmanager.entity.User;
 import br.com.mage.certmanager.enums.CertificateStatus;
 import br.com.mage.certmanager.exception.CertificateNotFoundException;
+import br.com.mage.certmanager.exception.UserNotFoundException;
 import br.com.mage.certmanager.mapper.CertificateMapper;
 import br.com.mage.certmanager.repository.CertificateRepository;
 
 import br.com.mage.certmanager.repository.CertificatesStatusHistoryRepository;
+import br.com.mage.certmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -28,10 +31,22 @@ public class CertificateService {
     private final CertificateMapper certificateMapper;
     private final CertificatesStatusHistoryRepository historyRepository;
 
+    //Temporario
+    private final UserRepository userRepository;
+
     public CertificateResponseDTO createCertificate(CertificateCreateRequestDTO dto){
+        User createdBy = userRepository.findById(dto.getCreatedByUserId())
+                .orElseThrow(
+                        () -> new UserNotFoundException(dto.getCreatedByUserId())
+                );
+
 
         Certificate certificate = certificateMapper.toEntity(dto);
         certificate.setStatus(CertificateStatus.ACTIVE);
+        certificate.setCreatedAt(LocalDateTime.now());
+
+        certificate.setCreatedBy(createdBy);
+
 
         Certificate savedCertificate = certificateRepository.save(certificate);
 
@@ -47,6 +62,10 @@ public class CertificateService {
     }
 
     public CertificateResponseDTO updateCertificate(CertificateUpdateRequestDTO dtoatt, Long id){
+
+        User user = userRepository.findById(dtoatt.getCreatedByUserId()).orElseThrow(
+                () -> new UserNotFoundException(dtoatt.getCreatedByUserId())
+        );
 
         Certificate certificate = certificateRepository.findById(id).orElseThrow(
                 () -> new CertificateNotFoundException(id)
@@ -81,6 +100,9 @@ public class CertificateService {
         }
         if(dtoatt.getRenewalValue() != null){
             certificate.setRenewalValue(dtoatt.getRenewalValue());
+        }
+        if(dtoatt.getCreatedByUserId() != null){
+            certificate.setCreatedBy(user);
         }
 
         certificate.setUpdatedAt(LocalDateTime.now());

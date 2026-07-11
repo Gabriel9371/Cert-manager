@@ -19,4 +19,5 @@ public class CertificateUpdateRequestDTO {
     private String issuer;
     private Boolean issuedByUs;
     private Double renewalValue;
+    private Long createdByUserId;
 }
