@@ -1,5 +1,8 @@
 package br.com.mage.certmanager.service;
 
+import br.com.mage.certmanager.dto.CertificateCreateRequestDTO;
+import br.com.mage.certmanager.dto.CertificateResponseDTO;
+import br.com.mage.certmanager.dto.CertificateUpdateRequestDTO;
 import br.com.mage.certmanager.repository.CertificateRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -12,7 +15,7 @@ import java.util.List;
 public class CertificateService {
     private final CertificateRepository certificateRepository;
 
-    public CertificateResponseDTO createCertificate(CreateRequestCertificateDTO dto){
+    public CertificateResponseDTO createCertificate(CertificateCreateRequestDTO dto){
 
 
         return null;
@@ -23,7 +26,7 @@ public class CertificateService {
         return null;
     }
 
-    public CertificateResponseDTO updateCertificate(UpdateRequestCertificateDTO dtoatt, Long id){
+    public CertificateResponseDTO updateCertificate(CertificateUpdateRequestDTO dtoatt, Long id){
 
         return null;
     }
