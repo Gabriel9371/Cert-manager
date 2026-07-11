@@ -19,7 +19,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private UserRole role;
+
     private String email;
     private String password;
 }
