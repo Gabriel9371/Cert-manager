@@ -6,6 +6,7 @@ import br.com.mage.certmanager.dto.CertificateResponseDTO;
 import br.com.mage.certmanager.dto.CertificateUpdateRequestDTO;
 import br.com.mage.certmanager.service.CertificateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,9 @@ public class CertificateController {
 
     @PostMapping
     public ResponseEntity<CertificateResponseDTO> createCertificate(@RequestBody CertificateCreateRequestDTO dto){
-        return null;
+        CertificateResponseDTO certificate = certificateService.createCertificate(dto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(certificate);
     }
 
     @PatchMapping("/{id}")
