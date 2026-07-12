@@ -5,6 +5,7 @@ import br.com.mage.certmanager.dto.CertificateCreateRequestDTO;
 import br.com.mage.certmanager.dto.CertificateResponseDTO;
 import br.com.mage.certmanager.dto.CertificateUpdateRequestDTO;
 import br.com.mage.certmanager.service.CertificateService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +36,14 @@ public class CertificateController {
     }
 
     @PostMapping
-    public ResponseEntity<CertificateResponseDTO> createCertificate(@RequestBody CertificateCreateRequestDTO dto){
+    public ResponseEntity<CertificateResponseDTO> createCertificate(@RequestBody @Valid  CertificateCreateRequestDTO dto){
         CertificateResponseDTO certificate = certificateService.createCertificate(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(certificate);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CertificateResponseDTO> updateCertificate(@RequestBody CertificateUpdateRequestDTO uDto, @PathVariable Long id){
+    public ResponseEntity<CertificateResponseDTO> updateCertificate(@RequestBody @Valid CertificateUpdateRequestDTO uDto, @PathVariable Long id){
         CertificateResponseDTO certificate = certificateService.updateCertificate(uDto, id);
 
         return ResponseEntity.ok(certificate);

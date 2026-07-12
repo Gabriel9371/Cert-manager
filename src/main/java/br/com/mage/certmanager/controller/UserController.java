@@ -5,6 +5,7 @@ import br.com.mage.certmanager.dto.UserCreateRequestDTO;
 import br.com.mage.certmanager.dto.UserResponseDTO;
 import br.com.mage.certmanager.dto.UserUpdateRequestDTO;
 import br.com.mage.certmanager.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +35,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserCreateRequestDTO dto){
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserCreateRequestDTO dto){
         UserResponseDTO user = userService.createUser(dto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto, @PathVariable Long id){
+    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody @Valid UserUpdateRequestDTO dto, @PathVariable Long id){
         UserResponseDTO user = userService.updateUser(id, dto);
 
         return ResponseEntity.ok(user);
