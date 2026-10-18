@@ -1,15 +1,16 @@
-import { api } from './api';
+import { api } from './api'
 
 export const certificateService = {
-  getAll: () => api.get('/certificates'),
-  getById: (id) => api.get(`/certificates/${id}`),
-  create: (data) => api.post('/certificates', data),
-  update: (id, data) => api.patch(`/certificates/${id}`, data),
-  delete: (id) => api.delete(`/certificates/${id}`),
-  getExpired: () => api.get('/certificates/expired'),
-};
+  list: () => api.get('/certificates').then((res) => res.data),
 
-export const userService = {
-  getAll: () => api.get('/users'),
-  create: (data) => api.post('/users', data),
-};
+  getById: (id) => api.get(`/certificates/${id}`).then((res) => res.data),
+
+  create: (payload) => api.post('/certificates', payload).then((res) => res.data),
+
+  update: (id, payload) =>
+    api.patch(`/certificates/${id}`, payload).then((res) => res.data),
+
+  remove: (id) => api.delete(`/certificates/${id}`),
+
+  listExpired: () => api.get('/certificates/expired').then((res) => res.data),
+}
