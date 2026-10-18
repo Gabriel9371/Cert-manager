@@ -18,7 +18,6 @@ public class CertificateCreateRequestDTO {
     @NotNull
     private LocalDate validUntil;
 
-
     @NotNull
     private LocalDate validFrom;
 
@@ -36,5 +35,6 @@ public class CertificateCreateRequestDTO {
 
     private Double renewalValue;
 
+    @NotNull
     private Long createdByUserId;
 }
