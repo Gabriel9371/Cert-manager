@@ -27,7 +27,7 @@ public class CertificatesStatusHistory {
     private CertificateStatus newStatus;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "changed_by_id")
     private User changedBy;
 
     @ManyToOne
