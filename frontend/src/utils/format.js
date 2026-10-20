@@ -1,3 +1,8 @@
+import { maskCnpj, normalizeCnpj } from './cnpj'
+
+// O backend manda LocalDate como "2026-10-18". Usar new Date("2026-10-18")
+// interpreta como UTC e, no Brasil (UTC-3), mostra o dia anterior.
+// Por isso montamos a data manualmente, em horário local.
 export function parseLocalDate(value) {
   if (!value) return null
   const [year, month, day] = value.split('-').map(Number)
@@ -23,14 +28,8 @@ export function formatCurrency(value) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
 
-// Só exibição: 12345678000199 -> 12.345.678/0001-99
 export function formatCnpj(value) {
-  const digits = (value ?? '').replace(/\D/g, '')
-  if (digits.length !== 14) return value ?? '—'
-  return digits.replace(
-    /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-    '$1.$2.$3/$4-$5',
-  )
+  return normalizeCnpj(value).length === 14 ? maskCnpj(value) : value || '—'
 }
 
 export function formatPhone(value) {
@@ -39,5 +38,13 @@ export function formatPhone(value) {
     return digits.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3')
   if (digits.length === 10)
     return digits.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3')
-  return value ?? '—'
+  return value || '—'
+}
+
+export function maskPhone(value) {
+  const d = (value ?? '').replace(/\D/g, '').slice(0, 11)
+  if (d.length <= 2) return d
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`
 }
