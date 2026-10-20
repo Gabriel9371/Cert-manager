@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ConfirmDialog from '../components/ConfirmDialog'
 import StatusBadge from '../components/StatusBadge'
 import { certificateService } from '../services/certificateService'
+import { normalizeCnpj } from '../utils/cnpj'
 import { deadlineLabel } from '../utils/deadline'
 import { formatCnpj, formatDate, formatPhone } from '../utils/format'
 import { CERTIFICATE_STATUS } from '../utils/status'
@@ -66,18 +67,17 @@ export default function CertificateList() {
     setReloadKey((key) => key + 1)
   }
 
-  // Derivado do estado: filtra e ordena sem guardar uma segunda lista.
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase()
-    const digits = term.replace(/\D/g, '')
+    // Para casar CNPJ ignorando pontuação (e aceitando letras: CNPJ alfanumérico).
+    const cnpjTerm = normalizeCnpj(search)
 
     return certificates
       .filter((c) => statusFilter === 'ALL' || c.status === statusFilter)
       .filter((c) => {
         if (!term) return true
         const byName = c.companyName.toLowerCase().includes(term)
-        const byCnpj =
-          digits !== '' && (c.cnpj ?? '').replace(/\D/g, '').includes(digits)
+        const byCnpj = cnpjTerm !== '' && normalizeCnpj(c.cnpj).includes(cnpjTerm)
         return byName || byCnpj
       })
       .sort(SORTERS[sortBy])
