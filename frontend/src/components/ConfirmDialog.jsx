@@ -26,18 +26,18 @@ export default function ConfirmDialog({
       <div
         role="dialog"
         aria-modal="true"
-        className="w-full max-w-sm rounded-lg border border-line bg-surface p-5 shadow-xl"
+        className="w-full max-w-sm rounded-2xl border border-line bg-surface p-6 shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
         <h3 className="text-base font-semibold">{title}</h3>
         <p className="mt-2 text-sm text-muted">{message}</p>
 
-        <div className="mt-5 flex justify-end gap-2">
+        <div className="mt-6 flex justify-end gap-2">
           <button
             type="button"
             onClick={onCancel}
             disabled={busy}
-            className="rounded-md border border-line px-3 py-2 text-sm text-fg transition-colors hover:bg-elevated disabled:opacity-50"
+            className="rounded-lg border border-line px-3.5 py-2 text-sm text-fg transition-colors hover:bg-elevated disabled:opacity-50"
           >
             Cancelar
           </button>
@@ -45,7 +45,7 @@ export default function ConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={busy}
-            className="rounded-md bg-danger px-3 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="rounded-lg bg-danger px-3.5 py-2 text-sm font-semibold text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {busy ? busyLabel : confirmLabel}
           </button>

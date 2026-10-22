@@ -23,9 +23,9 @@ const inputClass = (hasError) =>
   }`
 
 const secondaryButton =
-  'rounded-md border border-line px-4 py-2 text-sm transition-colors hover:bg-elevated disabled:opacity-50'
+  'rounded-lg border border-line px-4 py-2.5 text-sm transition-colors hover:bg-elevated disabled:opacity-50'
 const primaryButton =
-  'rounded-md bg-accent px-4 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-90 disabled:opacity-50'
+  'rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-bg transition-opacity hover:bg-accent-soft disabled:opacity-50'
 
 // O backend manda LocalDateTime com nanossegundos (9 dígitos). Cortamos nos
 // segundos para o Date interpretar com segurança em qualquer navegador.
@@ -39,8 +39,8 @@ function formatDateTime(value) {
 
 function Card({ title, children }) {
   return (
-    <section className="rounded-lg border border-line bg-surface p-4">
-      <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-muted">
+    <section className="rounded-xl border border-line bg-surface p-5">
+      <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
         {title}
       </h3>
       <dl className="space-y-2 text-sm">{children}</dl>
@@ -215,13 +215,13 @@ export default function CertificateDetail() {
   const isRenewing = certificate.status === 'RENEWING'
 
   return (
-    <div className="mx-auto max-w-4xl">
-      <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
+    <div className="mx-auto max-w-5xl">
+      <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
           <Link to="/certificados" className="text-sm text-muted hover:text-fg">
             ← Certificados
           </Link>
-          <h2 className="mt-2 text-xl font-semibold tracking-tight">
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
             {certificate.companyName}
           </h2>
           <p className="mt-1 font-mono text-xs text-muted">
@@ -272,8 +272,8 @@ export default function CertificateDetail() {
         </Card>
       </div>
 
-      <section className="mt-4 rounded-lg border border-line bg-surface p-4">
-        <h3 className="mb-3 text-xs font-medium uppercase tracking-wide text-muted">
+      <section className="mt-5 rounded-xl border border-line bg-surface p-5">
+        <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted">
           Renovação
         </h3>
 
