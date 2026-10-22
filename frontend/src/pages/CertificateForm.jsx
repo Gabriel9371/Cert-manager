@@ -24,7 +24,7 @@ const EMPTY = {
 }
 
 const inputClass = (hasError) =>
-  `w-full rounded-md border bg-surface px-3 py-2 text-sm text-fg placeholder:text-muted focus:outline-none ${
+  `w-full rounded-lg border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted focus:outline-none ${
     hasError
       ? 'border-danger focus:border-danger'
       : 'border-line focus:border-accent'
@@ -230,9 +230,10 @@ export default function CertificateForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="mx-auto max-w-3xl">
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold tracking-tight">
+    <form onSubmit={handleSubmit} noValidate className="mx-auto max-w-4xl">
+      <div className="mb-8">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent">Certificados</p>
+        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {isEdit ? 'Editar certificado' : 'Novo certificado'}
         </h2>
         {isEdit && meta && (
@@ -252,7 +253,8 @@ export default function CertificateForm() {
         </div>
       )}
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="rounded-xl border border-line bg-surface p-5 sm:p-6">
+      <div className="grid gap-5 md:grid-cols-2">
         <Field label="Empresa" htmlFor="companyName" error={errors.companyName}>
           <input
             id="companyName"
@@ -379,18 +381,19 @@ export default function CertificateForm() {
           </Field>
         )}
       </div>
+      </div>
 
-      <div className="mt-6 flex justify-end gap-2">
+      <div className="mt-5 flex justify-end gap-2">
         <Link
           to="/certificados"
-          className="rounded-md border border-line px-4 py-2 text-sm transition-colors hover:bg-elevated"
+          className="rounded-lg border border-line px-4 py-2.5 text-sm transition-colors hover:bg-elevated"
         >
           Cancelar
         </Link>
         <button
           type="submit"
           disabled={saving}
-          className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
+          className="rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-bg transition-opacity hover:bg-accent-soft disabled:opacity-50"
         >
           {saving ? 'Salvando…' : isEdit ? 'Salvar alterações' : 'Cadastrar'}
         </button>

@@ -9,7 +9,7 @@ import { formatCnpj, formatDate, formatPhone } from '../utils/format'
 import { CERTIFICATE_STATUS } from '../utils/status'
 
 const controlClass =
-  'rounded-md border border-line bg-surface px-3 py-2 text-sm text-fg placeholder:text-muted focus:border-accent focus:outline-none'
+  'rounded-lg border border-line bg-surface px-3 py-2.5 text-sm text-fg placeholder:text-muted transition focus:border-accent focus:outline-none'
 
 // Datas no formato ISO (2026-10-18) ordenam corretamente como texto,
 // então localeCompare resolve sem precisar converter para Date.
@@ -129,9 +129,9 @@ export default function CertificateList() {
     )
   } else {
     content = (
-      <div className="overflow-x-auto rounded-lg border border-line">
+      <div className="overflow-x-auto rounded-xl border border-line bg-surface">
         <table className="w-full text-left text-sm">
-          <thead className="bg-surface text-xs uppercase tracking-wide text-muted">
+          <thead className="bg-elevated/50 text-xs uppercase tracking-wide text-muted">
             <tr>
               <th className="px-4 py-3 font-medium">Empresa</th>
               <th className="px-4 py-3 font-medium">CNPJ</th>
@@ -142,7 +142,7 @@ export default function CertificateList() {
           </thead>
           <tbody className="divide-y divide-line">
             {visible.map((c) => (
-              <tr key={c.id} className="transition-colors hover:bg-surface/60">
+              <tr key={c.id} className="transition-colors hover:bg-elevated/40">
                 <td className="px-4 py-3">
                   <div className="font-medium">{c.companyName}</div>
                   <div className="text-xs text-muted">
@@ -185,23 +185,24 @@ export default function CertificateList() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+    <div className="mx-auto max-w-7xl">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-tight">Certificados</h2>
-          <p className="text-sm text-muted">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-accent">Gestão</p>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Certificados</h2>
+          <p className="mt-2 text-sm text-muted">
             {loading ? 'Carregando…' : `${visible.length} de ${certificates.length}`}
           </p>
         </div>
         <Link
           to="/certificados/novo"
-          className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-bg transition-opacity hover:opacity-90"
+          className="rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-bg shadow-lg shadow-accent/10 transition hover:bg-accent-soft"
         >
           Novo certificado
         </Link>
       </div>
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-5 flex flex-col gap-2 sm:flex-row">
         <input
           type="search"
           value={search}
